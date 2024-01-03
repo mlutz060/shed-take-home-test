@@ -38,3 +38,7 @@ This is a transparent view of what we will/will not be looking at
 ### Time
 
 We want to be respectful of your time with this test. Do not spend more than 1 hour on this test. If you aren't able to complete it, try to get as far as you can. We ask that you stop at that 1 hour limit, regardless of progress.
+
+### Help
+
+If you have questions or if anything is unclear, please reach out to conner@mkrs.dev. We are happy to answer questions, and definitely want you to ask them if anything isn't clear.
