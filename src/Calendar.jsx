@@ -1,6 +1,6 @@
 import React from "react";
 
-const providers = [
+export const providers = [
   {
     id: 1,
     name: "Conner Ludlow",
@@ -15,13 +15,13 @@ const providers = [
   },
 ];
 
-const appointments = [
-  // {
-  //     id: 1,
-  //     patientName: "Patient Name",
-  //     startTime: 7,
-  //     providerId: 1
-  // }
+export const appointments = [
+  {
+      id: 1,
+      patientName: "Madison Blotter",
+      startTime: 9,
+      providerId: 1
+  }
 ];
 
 const formatHour = (hour) => {
@@ -29,6 +29,7 @@ const formatHour = (hour) => {
   const formattedHour = hour > 12 ? hour - 12 : hour;
   return `${formattedHour}:00 ${isPM ? "PM" : "AM"}`;
 };
+
 
 function Calendar() {
   const startTime = 8;
@@ -66,11 +67,11 @@ function Calendar() {
               <div className="w-48 h-20 p-1" key={`${hour}-${provider.id}`}>
                 {/* Recognize that there is a scheduled appointment here */}
                 {/* Example Component */}
-                {/* <div className="w-full h-full bg-sky-100 rounded-md p-2">
+                <div className="w-full h-full bg-sky-100 rounded-md p-2">
                         <span className="font-semibold text-sky-700 text-sm">
                         Patient Name
                         </span>
-                    </div> */}
+                    </div>
               </div>
             ))}
           </div>
