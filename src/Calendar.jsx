@@ -67,6 +67,9 @@ function Calendar() {
               <div className="w-48 h-20 p-1" key={`${hour}-${provider.id}`}>
                 {/* Recognize that there is a scheduled appointment here */}
                 {/* Example Component */}
+                {/* //for each hour for a specific provider get the hour and id and
+                //check it against the appointments in the apt array
+                //if condition is true display the below block */}
                 {/* <div className="w-full h-full bg-sky-100 rounded-md p-2">
                         <span className="font-semibold text-sky-700 text-sm">
                         Patient Name

@@ -1,31 +1,21 @@
 import React, { useState } from "react";
 import Calendar, {providers, appointments} from "./Calendar";
+import { useForm} from "react-hook-form";
 
 function App() {
   const [openModal, setOpenModal] = useState(false);
-  const [formData, setFormData] = useState({
-    id: '',
-    patientName: '',
-    startTime: '',
-    providerId: ''
-  });
+  const { register, handleSubmit } = useForm();
   const [appointments, setAppointments] = useState([]);
 
   const toggleModal = () => {
     setOpenModal(!openModal);
   }
-  const handleChange = (field, value) =>{
-    setFormData({
-      ...formData,
-      [field]: value
-    });
-  }
-  const handleSubmit = (field, value) => {
-    setAppointments([...appointments, formData]);
-    //add the form data to the appointments array
-    appointments.push(formData)
-    setOpenModal(!openModal);
-  }
+  // const handleSubmit = (field, value) => {
+  //   setAppointments([...appointments, formData]);
+  //   //add the form data to the appointments array
+  //   appointments.push(formData)
+  //   setOpenModal(!openModal);
+  // }
 
   return (
     <div className="min-h-screen bg-gray-100 flex justify-center items-center">
@@ -46,27 +36,31 @@ function App() {
           <div onClick={toggleModal} className="overlay"></div>
           <div className="modal-content">
             <h2>Schedule Appointment</h2>
-            <form action="submit" className="form">
+            <form 
+              onSubmit={handleSubmit((data) => {
+                console.log(data);
+              })}
+             className="form">
               <label>Patients Name</label> 
-              <input type="text" /> 
+              <input {...register('patientName')} type="text" /> 
 
               <label>Select a Provider</label> 
               <select name="" id=""> 
                 <option value="">Select a Provider</option>
                 {providers.map((provider)=> (
-                  <option key={provider.id} value={provider.id}>
+                  <option {...register('provider')} key={provider.id} value={provider.id}>
                     {provider.name}
                   </option>
                 ))}                
               </select>
 
               <label>Select a Time</label> 
-              <select name="" id=""> 
+              <select {...register('time')} name="" id=""> 
                 <option value="">Select a Time</option>
                 
               </select>
-            </form>
-            <div className="footer">
+
+              <div className="footer">
               <button
               className="rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" 
               onClick={toggleModal}>
@@ -74,10 +68,11 @@ function App() {
               </button>
               <button
               className="rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" 
-              onClick={handleSubmit}>
+              type="submit">
                 Schedule
               </button>
             </div>
+            </form>
           </div>
         </div>
       )}
