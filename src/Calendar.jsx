@@ -39,49 +39,59 @@ function Calendar() {
     { length: endTime - startTime + 1 },
     (_, i) => startTime + i
   );
-
-  return (
-    <div>
-      <div className="shadow rounded-xl overflow-hidden w-full">
-        <div className="flex bg-gray-50 divide-x border-b border-gray-200">
-          <div className="w-24" />
-          {providers.map((provider) => (
-            <div className="w-48 px-4 py-2 text-center" key={provider.id}>
-              <span className="text-sm font-semibold text-gray-900">
-                {provider.name}
-              </span>
-            </div>
-          ))}
-        </div>
-        {hours.map((hour) => (
-          <div
-            key={hour}
-            className="flex bg-white divide-x border-b border-gray-200 items-center"
-          >
-            <div className="w-24">
-              <span className="text-xs font-medium text-gray-500 flex justify-center">
-                {formatHour(hour)}
-              </span>
-            </div>
+  
+    return (
+      <div>
+        <div className="shadow rounded-xl overflow-hidden w-full">
+          <div className="flex bg-gray-50 divide-x border-b border-gray-200">
+            <div className="w-24" />
             {providers.map((provider) => (
-              <div className="w-48 h-20 p-1" key={`${hour}-${provider.id}`}>
-                {/* Recognize that there is a scheduled appointment here */}
-                {/* Example Component */}
-                {/* //for each hour for a specific provider get the hour and id and
-                //check it against the appointments in the apt array
-                //if condition is true display the below block */}
-                {/* <div className="w-full h-full bg-sky-100 rounded-md p-2">
-                        <span className="font-semibold text-sky-700 text-sm">
-                        Patient Name
-                        </span>
-                    </div> */}
+              <div className="w-48 px-4 py-2 text-center" key={provider.id}>
+                <span className="text-sm font-semibold text-gray-900">
+                  {provider.name}
+                </span>
               </div>
             ))}
           </div>
-        ))}
+          {hours.map((hour) => {
+            const scheduledAppointments = appointments.filter(
+              (appointment) => appointment.startTime === hour
+            );
+  
+            return (
+              <div
+                key={hour}
+                className="flex bg-white divide-x border-b border-gray-200 items-center"
+              >
+                <div className="w-24">
+                  <span className="text-xs font-medium text-gray-500 flex justify-center">
+                    {formatHour(hour)}
+                  </span>
+                </div>
+                {providers.map((provider) => {
+                  const scheduledAppointment = scheduledAppointments.find(
+                    (appointment) =>
+                      appointment.providerId === provider.id
+                  );
+  
+                  return (
+                    <div className="w-48 h-20 p-1" key={`${hour}-${provider.id}`}>
+                      {scheduledAppointment ? (
+                        <div className="w-full h-full bg-sky-100 rounded-md p-2">
+                          <span className="font-semibold text-sky-700 text-sm">
+                            {scheduledAppointment.patientName}
+                          </span>
+                        </div>
+                      ) : null}
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          })}
+        </div>
       </div>
-    </div>
-  );
+    );
 }
 
 export default Calendar;

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Calendar, {providers, appointments} from "./Calendar";
-import { useForm} from "react-hook-form";
+import { useForm } from "react-hook-form";
 
 function App() {
   const [openModal, setOpenModal] = useState(false);
@@ -10,12 +10,6 @@ function App() {
   const toggleModal = () => {
     setOpenModal(!openModal);
   }
-  // const handleSubmit = (field, value) => {
-  //   setAppointments([...appointments, formData]);
-  //   //add the form data to the appointments array
-  //   appointments.push(formData)
-  //   setOpenModal(!openModal);
-  // }
 
   return (
     <div className="min-h-screen bg-gray-100 flex justify-center items-center">
@@ -39,23 +33,26 @@ function App() {
             <form 
               onSubmit={handleSubmit((data) => {
                 console.log(data);
+                setAppointments([...appointments, data]);
+                setOpenModal(!openModal);
+                console.log(appointments);
               })}
              className="form">
               <label>Patients Name</label> 
               <input {...register('patientName')} type="text" /> 
 
               <label>Select a Provider</label> 
-              <select name="" id=""> 
+              <select {...register('provider')} name="provider"> 
                 <option value="">Select a Provider</option>
                 {providers.map((provider)=> (
-                  <option {...register('provider')} key={provider.id} value={provider.id}>
+                  <option key={provider.id} value={provider.id}>
                     {provider.name}
                   </option>
                 ))}                
               </select>
 
               <label>Select a Time</label> 
-              <select {...register('time')} name="" id=""> 
+              <select {...register('time')} name="time"> 
                 <option value="">Select a Time</option>
                 
               </select>
