@@ -67,11 +67,11 @@ function Calendar() {
               <div className="w-48 h-20 p-1" key={`${hour}-${provider.id}`}>
                 {/* Recognize that there is a scheduled appointment here */}
                 {/* Example Component */}
-                <div className="w-full h-full bg-sky-100 rounded-md p-2">
+                {/* <div className="w-full h-full bg-sky-100 rounded-md p-2">
                         <span className="font-semibold text-sky-700 text-sm">
                         Patient Name
                         </span>
-                    </div>
+                    </div> */}
               </div>
             ))}
           </div>

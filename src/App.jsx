@@ -3,10 +3,30 @@ import Calendar, {providers, appointments} from "./Calendar";
 
 function App() {
   const [openModal, setOpenModal] = useState(false);
+  const [formData, setFormData] = useState({
+    id: '',
+    patientName: '',
+    startTime: '',
+    providerId: ''
+  });
+  const [appointments, setAppointments] = useState([]);
 
   const toggleModal = () => {
     setOpenModal(!openModal);
   }
+  const handleChange = (field, value) =>{
+    setFormData({
+      ...formData,
+      [field]: value
+    });
+  }
+  const handleSubmit = (field, value) => {
+    setAppointments([...appointments, formData]);
+    //add the form data to the appointments array
+    appointments.push(formData)
+    setOpenModal(!openModal);
+  }
+
   return (
     <div className="min-h-screen bg-gray-100 flex justify-center items-center">
       <div className="py-24">
@@ -19,7 +39,7 @@ function App() {
             Schedule Appointment
           </button>
         </div>
-        <Calendar />
+        <Calendar appointments={appointments} />
       </div>
       {openModal && (
         <div className="modal">
@@ -27,10 +47,10 @@ function App() {
           <div className="modal-content">
             <h2>Schedule Appointment</h2>
             <form action="submit" className="form">
-              <lable>Patients Name</lable> 
+              <label>Patients Name</label> 
               <input type="text" /> 
 
-              <lable>Select a Provider</lable> 
+              <label>Select a Provider</label> 
               <select name="" id=""> 
                 <option value="">Select a Provider</option>
                 {providers.map((provider)=> (
@@ -40,14 +60,10 @@ function App() {
                 ))}                
               </select>
 
-              <lable>Select a Time</lable> 
+              <label>Select a Time</label> 
               <select name="" id=""> 
                 <option value="">Select a Time</option>
-                {/* {hours.map((hours)=> (
-                  <option key={hours.id} value={hours.id}>
-                    {hours.name}
-                  </option>
-                ))} */}
+                
               </select>
             </form>
             <div className="footer">
@@ -58,7 +74,7 @@ function App() {
               </button>
               <button
               className="rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" 
-              onClick={toggleModal}>
+              onClick={handleSubmit}>
                 Schedule
               </button>
             </div>
