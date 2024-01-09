@@ -31,15 +31,15 @@ const formatHour = (hour) => {
 };
 
 
-function Calendar() {
-  const startTime = 8;
-  const endTime = 17;
+function Calendar({appointments, hours}) {
+  // const startTime = 8;
+  // const endTime = 17;
 
-  const hours = Array.from(
-    { length: endTime - startTime + 1 },
-    (_, i) => startTime + i
-  );
-  
+  // const hours = Array.from(
+  //   { length: endTime - startTime + 1 },
+  //   (_, i) => startTime + i
+  // );
+
     return (
       <div>
         <div className="shadow rounded-xl overflow-hidden w-full">
